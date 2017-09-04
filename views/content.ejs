@@ -1,0 +1,263 @@
+<% var pageTileStr= "", metaKeywordsStr= "", metaDescriptionStr="";
+if (document_details.Document) {
+pageTileStr= document_details.Document;
+}
+if (document_details.PageTitle && document_details.PageTitle!=="") {
+pageTileStr= document_details.PageTitle;
+}
+if (document_details.MetaTagKeywords) { 
+metaKeywordsStr= document_details.MetaTagKeywords;
+}
+if (document_details.MetaTagDescription) { 
+metaDescriptionStr= document_details.MetaTagDescription;
+}
+%>
+<%  include include/main-header %>
+<style>
+ #blogComment label.error {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
+	font-style: italic;
+	font-weight:normal;
+	display:block;
+	width:auto!important;
+}
+
+.content table tr td, .content table tr th {
+	padding: 5px;
+	border:1px solid #FFFFFF;
+}
+ </style>    
+</head>
+<body>
+<%  include include/analyticstracking %>
+<div class="container" >
+  	<% include include/header %>
+	<div class="pg-hding">
+		 <% if(document_details.Type=="page"){	%>
+		 	<%= document_details.Document %>
+		 <% } else if(document_details.Type=="blog") { %>
+            Blog Post
+        <% } %>
+    </div>
+        
+  <div class="content-bg">
+    <div class="row">
+      
+      <div class="col-lg-8 col-md-8 col-lg-push-4 col-md-push-4">
+        <div class="content">
+		<h1><% if (typeof document_details.Title !== 'undefined' && document_details.Title !== null && document_details.Title != "") { %><%= document_details.Title %><% }else if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %></h1>
+		
+		
+<% if(document_details.Type=="blog" || document_details.Type=="news"){
+    	var a = new Date(document_details.created * 1000);
+  		var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  		var yearStr = a.getFullYear();
+  		var monthStr = months[a.getMonth()];
+  		var dateNum = a.getDate();
+  	%>	
+		<p style="line-height:14px; vertical-align:top;margin-top:-10px;">
+			<span class="glyphicon glyphicon-calendar" style="padding-right:5px; font-size:11px;"></span>
+			<a href="blog.php?Day=<%= dateNum %>&Month=<%= monthStr %>&Year=<%= yearStr %>"><%= dateNum %><%= monthStr %><%= yearStr %></a>
+			
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-user" style="padding-right:5px; font-size:11px;"></span><a href="javascript:void(0)" title="Posts by Admin" rel="author">Admin</a>
+	  &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-comment" style="padding-right:5px; font-size:11px;"></span><a href="#respond" title="Comment on <% if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %>"><% if(document_details.BlogComments && document_details.BlogComments.length>=1) { %><%= document_details.BlogComments.length %> comment(s)<% } else{ %>No comment<% } %></a></p>
+			<% if(typeof document_details.uploaded_file_uuid !== "undefined" && document_details.uploaded_file_uuid !== null && document_details.uploaded_file_uuid != ""){ %>
+				<img src="/file/<%= document_details.uploaded_file_uuid %>" class="img-responsive" alt=""/>
+			<% }else if (typeof document_details.image_path !== 'undefined' && document_details.image_path !== null && document_details.image_path != "") { %>
+ 				<img src="<%= document_details.image_path %>" class="img-responsive" alt=""/>
+            <% } %>
+		</p>
+			
+		<%- document_details.Body %>
+		<br/><br/>
+				
+
+<% if(document_details.Type=="blog"){	%>
+				<h4 >Social Share</h4><br/>
+				<p>	
+				<a style="text-decoration:none" href="http://www.facebook.com/share.php?u=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>" target="_blank">
+					<img class="no-preload" src="images/social-icons/facebook.png">
+				</a>
+			
+				<a style="text-decoration:none" href="http://twitter.com/home?status=<% if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %>%20-%20http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>/" target="_blank">
+					<img class="no-preload" src="images/social-icons/twitter.png">
+				</a>
+				
+							<a style="text-decoration:none" href="http://www.stumbleupon.com/submit?url=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>&amp;title=<% if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %>" target="_blank">
+					<img class="no-preload" src="images/social-icons/stumbleupon.png">
+				</a>
+			
+				<a style="text-decoration:none" href="http://delicious.com/post?url=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>&amp;title=<% if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %>" target="_blank">
+					<img class="no-preload" src="images/social-icons/delicious.png">
+				</a>
+							<a style="text-decoration:none" href="http://digg.com/submit?url=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>&amp;title=<% if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %>" target="_blank">
+					<img class="no-preload" src="images/social-icons/digg.png">
+				</a>
+			
+				<a style="text-decoration:none" href="http://reddit.com/submit?url=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>&amp;title=<% if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %>" target="_blank">
+					<img class="no-preload" src="images/social-icons/reddit.png">
+				</a>
+						<a style="text-decoration:none" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>&amp;title=<% if (typeof document_details.Document !== 'undefined' && document_details.Document !== null && document_details.Document != "") { %><%= document_details.Document %><% } %>" target="_blank">
+					<img class="no-preload" src="images/social-icons/linkedin.png">
+				</a>
+				
+				<a style="text-decoration:none" href="https://plus.google.com/share?url=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>" onClick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
+					<img class="no-preload" src="images/social-icons/googleplus.png">
+				</a>					
+			
+				<a style="text-decoration:none" href="http://pinterest.com/pin/create/button/?url=http://dipna.com/<% if (typeof document_details.Code !== 'undefined' && document_details.Code !== null && document_details.Code != "") { %><%= document_details.Code %><% } %>&amp;media=http://dipna.com/wp-content/uploads/2013/08/Dipna-Press.jpg" class="pin-it-button" count-layout="horizontal" onClick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
+					<img class="no-preload" src="images/social-icons/pinterest.png">
+				</a>	</p><br/><br/>
+			
+
+				<p id="respond"></p>
+				<%	if(document_details.BlogComments){
+                		if(document_details.BlogComments.length>0){	%>
+          				
+                  		<%	var objectArr=document_details.BlogComments;
+      						for(var objCount=0; objCount<objectArr.length; objCount++){
+                  				var subObject=objectArr[objCount];
+                  				if(subObject.status==1){	%>
+                  				<p><a style="text-decoration:none;" ><b><%= subObject.name %></b></a>&nbsp;
+                      				<% if(subObject.modified){
+                      						var modifiedDateStr = timeConverter(subObject.modified);	%>
+                      						<span style="font-size:14px; color:#999999">(<%= modifiedDateStr %>)</span>
+                      				<% } %>
+                    				&nbsp;
+                    				<%= subObject.comment %></p>
+                   				<br/>
+                   				<% }
+                   			} %>
+                		
+                <%		}	
+                	}	%>
+
+
+<h4 >Leave a Reply </h4><br/>
+<form class="form-horizontal cont-form" role="form" id="blogComment" method="post" action="">
+<input id="blog_uuid" name="blog_uuid" type="hidden" value="<%= document_details._id %>">
+                    	
+ <div class="form-group">
+    <label for="" class="col-sm-2 control-label">Name <sup>*</sup> </label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label">Email <sup>*</sup></label>
+    <div class="col-sm-6">
+      <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label">Website </label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="web" name="web" placeholder="Website">
+    </div>
+  </div>
+	<div class="form-group">
+    <label for="" class="col-sm-2 control-label">Comment <sup>*</sup></label>
+    <div class="col-sm-6">
+       <textarea class="form-control" rows="3" id="comment" name="comment" placeholder="Enter your Comment"></textarea>
+    </div>
+    </div>        
+                           
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+      <button type="submit" class="btn btn-default" id="postBtn" name="submit">Submit</button>
+    </div>
+  </div>
+</form>	
+<% } %>	
+<% }else{ %>
+				
+      			<% if(typeof document_details.uploaded_file_uuid !== "undefined" && document_details.uploaded_file_uuid !== null && document_details.uploaded_file_uuid != ""){ %>
+					<p>
+                  		<img src="/file/<%= document_details.uploaded_file_uuid %>" class="img-responsive" alt=""/>
+               		</p>
+				<% } else if (typeof document_details.image_path !== "undefined" && document_details.image_path !== null && document_details.image_path != "") { %>
+              		<p>
+                  		<img src="<%= document_details.image_path %>" class="img-responsive" alt=""/>
+               		</p>
+				<% } %>
+	  			<%- document_details.Body %>
+	  			<% if(document_details.Objects){
+	  					for(var i=0; i<document_details.Objects.length; i++){
+	  							if(document_details.Objects[i].status==1 || document_details.Objects[i].status=="1"){	%>
+	  							<h2><%- document_details.Objects[i].name %></h2>
+	  							<%- document_details.Objects[i].content %>
+	  					<%		}
+	  						}	  					
+	  					} %>
+<% } %>
+			</div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-lg-pull-8 col-md-pull-8">
+        <div id="sidebar_recipes"></div>
+        <div class="upcoming-book mrgn-btm-15" id="book-description">
+          
+        </div>
+      </div>
+    </div>
+ 
+   <% include include/top-footer %>
+</div>
+ </div>
+
+ <% include include/footer %>
+ <script src="js/jquery.validate.js"></script>
+ <script>
+ $(document).ready(function() {
+ 	fetch_token_content("['book-description']");
+ 	
+ 	$("#blogComment").validate({
+		errorPlacement: function(error, element) {
+    		error.insertAfter(element);
+		},
+		rules: {
+			name: "required",
+			email: {
+				required: true,
+				email: true
+			},
+			comment:  "required",
+		},
+		messages: {
+			name: "Please enter your Name",
+			email: {
+				required: "Please enter your Email address",
+				email: "Please enter a valid Email address"
+			},
+			comment: "Please enter your Comment.",
+		},
+		submitHandler: function(form) {
+			$(".alert").remove();
+    		$("#postBtn").html("Posting your comment...");
+    		$("#postBtn").prop("disabled",true);
+    		$.ajax({
+				type: "POST",
+				url: "saveblogcomment",
+				headers : { "cache-control": "no-cache" },
+				data: {'blog_uuid' : $("#blog_uuid").val(), 'name' : $("#name").val(), 'email' : $("#email").val(), 'comment' : $("#comment").val() },
+				dataType: "json",
+				cache: false,
+				success: function(response){
+					$("#postBtn").html("Post Comment");
+    				$("#postBtn").prop("disabled",false);
+    				$('#blogComment').trigger("reset");
+					if(response.success){
+						$("#blogComment").before('<div class="alert alert-success">'+response.success+'</div>');
+					}else if(response.error){
+						$("#blogComment").before('<div class="alert alert-danger">'+response.error+'</div>');
+					}
+				}
+			});
+		}
+	});
+ });
+ </script>
+</body>
+</html>

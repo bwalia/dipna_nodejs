@@ -1,0 +1,46 @@
+<% var pageTileStr= "";
+if (document_details.title) {
+pageTileStr= document_details.title;
+}
+%>
+<%  include include/main-header %>
+<style>
+.content table tr td, .content table tr th {
+	padding: 5px;
+	border:1px solid #FFFFFF;
+}
+ </style>    
+</head>
+<body>
+<%  include include/analyticstracking %>
+<div class="container" >
+  	<% include include/header %>
+	<div class="pg-hding">
+		 Video
+	</div>
+        
+  <div class="content-bg">
+    <div class="row">
+      
+      <div class="col-lg-8 col-md-8 col-lg-push-4 col-md-push-4">
+        <div class="content">
+			<h1><% if (typeof document_details.title !== 'undefined' && document_details.title !== null && document_details.title != "") { %><%= document_details.title %><% }else { %>Video><% } %></h1>
+			
+	  			<%- document_details.source %>
+			</div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-lg-pull-8 col-md-pull-8">
+        <div id="sidebar_recipes"></div>
+        <div class="upcoming-book mrgn-btm-15" id="book-description">
+          
+        </div>
+      </div>
+    </div>
+ 
+   <% include include/top-footer %>
+</div>
+ </div>
+
+ <% include include/footer %>
+</body>
+</html>

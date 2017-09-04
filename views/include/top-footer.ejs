@@ -1,0 +1,37 @@
+<div class="footer">
+          <div class="row">
+          		<div class="col-sm-6 col-md-3">
+                <h2>Quick Links</h2>
+				<ul class="quicklinks">
+					<% if (typeof navigation !== 'undefined' && navigation !== null) {
+						for(var tnav=0; tnav<navigation.length; tnav++){
+							if(navigation[tnav].categories=='footer-nav' && navigation[tnav].content!=''){	%>
+								<li><i class="fa fa-angle-right"></i><a HREF="<%= navigation[tnav].content %>" title="<%= navigation[tnav].label %>"><span><%= navigation[tnav].label %></span></a></li>
+							<%	} 
+						}	
+					} %>
+				</ul>
+              </div>
+			  
+			  
+			<div class="col-sm-6 col-md-3">
+			<h2>Archives</h2>
+				<ul class="recent-posts" id="blog_archives_id">
+				</ul>
+			</div>
+			  
+			  
+	<div class="col-sm-6 col-md-3">
+		<h2>Recent Posts</h2>
+		<ul class="recent-posts" id="latestfooterblogs">
+		</ul>
+	</div>
+        <div class="col-sm-6 col-md-3">
+          <h2>Contact Us</h2>
+          	<span id="contact_footer"></span>
+              </div>
+          </div>
+          
+    <p class="text-right" style="margin-bottom:0px; padding-bottom:10px;" >All Rights Reserved. <!--Powered by <a style="color: #ed8000;" target="_blank" href="http://www.tenthmatrix.co.uk/" title="Web site designed by Tenthmatrix" class="copyright">Tenthmatrix</a>--></p>
+<div class="credits"><span style="font-size:10px;" ><strong>Powered by:</strong></span> <a target="_blank" href="http://www.tenthmatrix.co.uk/" title="Web site designed by Tenthmatrix" ><img src="images/powered-by-logo.png" style=" vertical-align:middle;"></a></div>
+  </div>
