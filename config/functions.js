@@ -116,7 +116,7 @@ findTokensListInTemplate : function (templateContentStr) {
 	var findTokensStr= '', searchParaCount=4, tempContentStr=templateContentStr;
 	var findTokenStartingPos = tempContentStr.indexOf("<*--");
 
-    if(tempContentStr!="" && findTokenStartingPos>=1){
+    if(tempContentStr!="" && findTokenStartingPos>=0){
     	var findTokenEndingPos = tempContentStr.indexOf("--*>");
       	var tokenStr=tempContentStr.substring(findTokenStartingPos+searchParaCount, findTokenEndingPos);
 		if(findTokensStr!=""){
